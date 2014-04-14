@@ -10,3 +10,4 @@ feature 'Homepage' do
     expect(page).to have_content 'Welcome!'
   end
 end
+
