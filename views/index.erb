@@ -1,10 +1,11 @@
 <html>
-<head><h1>Welcome!</h1></head>
+<head>
+  <% if email != nil %>
+      <h1> Welcome, <%= email %></h1>
+      <a href="/">Logout</a>
+  <% end %>
+</head>
 <body>
-<br>
-<% if email != nil %>
-Hello <%= email %>
-<% end %>
 <br>
 <a href="/register">Register</a>
 </body>

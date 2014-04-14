@@ -12,7 +12,9 @@ feature 'Homepage' do
     fill_in'user_password', with: 'hello123'
     click_on('Register')
 
-    expect(page).to have_content('Hello joe@example.com')
+    expect(page).to have_content('Welcome, joe@example.com')
 
+    click_on('Logout')
+    expect(page).to_not have_content('Welcome, joe@example.com')
   end
 end

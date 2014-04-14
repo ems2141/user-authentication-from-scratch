@@ -19,7 +19,7 @@ class Application < Sinatra::Application
     erb :registration
   end
 
-  post '/register' do
+  post '/' do
     user_email = params[:user_email]
     erb :index, locals: {:email => user_email}
   end
