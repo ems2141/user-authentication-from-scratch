@@ -29,8 +29,9 @@ To run the migrations on heroku, run `heroku run 'rake db:migrate'`. If you
 do not have a Heroku configuration variable named DATABASE_URL, then you will need to create one.
 
 ## Production and Staging URLs
-Production URL: serene-retreat-production.herokuapp.com
-Staging URL: pure-river-staging.herokuapp.com
+[Production URL: http://serene-retreat-production.herokuapp.com](http://serene-retreat-production.herokuapp.com)
+
+[Staging URL: http://pure-river-staging.herokuapp.com](http://pure-river-staging.herokuapp.com)
 
 ## Pivotal Tracker Project URL
-https://www.pivotaltracker.com/n/projects/1060064
+[https://www.pivotaltracker.com/n/projects/1060064](https://www.pivotaltracker.com/n/projects/1060064)
