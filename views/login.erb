@@ -1,0 +1,25 @@
+<table class="reg_log_table">
+  <tc>
+    <td></td>
+    <td><h1>Login</h1></td>
+  </tc>
+  <tr>
+    <td></td>
+    <td style="color: red; padding-bottom: 1em"><%= error %>
+    </td>
+  </tr>
+  <form action="/login" method="post">
+    <tr class="reg_column">
+      <td>Email</td>
+      <td><input type="email" name="login_email"></td>
+    </tr>
+    <tr class="reg_column">
+      <td>Password</td>
+      <td><input type="password" name="login_password"></td>
+    </tr>
+    <tr class="reg_column">
+      <td></td>
+      <td><input type="submit" value="Login"></td>
+    </tr>
+  </form>
+</table>

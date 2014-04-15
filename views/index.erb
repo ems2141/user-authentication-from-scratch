@@ -1,12 +1,16 @@
-<html>
-<head>
-  <% if email != nil %>
-      <h1> Welcome, <%= email %></h1>
-      <a href="/">Logout</a>
+  <% if user != nil %>
+      <h1 class="title"> Welcome, <%= user[:email] %></h1>
+  <% else %>
+      <h1 class="title">You are not logged in.</h1>
   <% end %>
-</head>
-<body>
 <br>
-<a href="/register">Register</a>
-</body>
-</html>
+<% if user != nil %>
+    <table>
+      <tc class="columns"><a href="/logout">Logout</a></tc>
+    </table>
+<% else %>
+    <table>
+      <tc class="columns"><a href="/login">Login</a></tc>
+      <tc class="columns"><a href="/register">Register</a></tc>
+    </table>
+<% end %>
