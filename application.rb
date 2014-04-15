@@ -32,10 +32,15 @@ class Application < Sinatra::Application
 
   post '/login' do
     user = @user_table[email: params[:login_email]]
-    orig_password = BCrypt::Password.new(user[:password])
-    if orig_password == params[:login_password]
-      session[:user_id] = user[:id]
-      redirect '/'
+    if user
+      orig_password = BCrypt::Password.new(user[:password])
+      if orig_password == params[:login_password]
+        session[:user_id] = user[:id]
+        redirect '/'
+      else
+        error = "Email / Password is invalid"
+        erb :login, locals: {error: error}
+      end
     else
       error = "Email / Password is invalid"
       erb :login, locals: {error: error}

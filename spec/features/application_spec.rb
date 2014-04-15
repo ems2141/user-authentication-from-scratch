@@ -22,5 +22,11 @@ feature 'Homepage' do
     click_on('Login')
     expect(page).to have_content('Welcome, joe@example.com')
 
+    click_on('Logout')
+    click_on 'Login'
+    fill_in 'login_email', with: 'applepie@example.com'
+    fill_in 'login_password', with: 'hello123'
+    click_on('Login')
+    expect(page).to have_content('Email / Password is invalid')
   end
 end
