@@ -92,14 +92,14 @@ feature 'Homepage' do
     expect(page).to have_content 'Passwords must match'
 
     fill_in 'user_email', with: '123@abc.com'
-    fill_in 'user_password', with: '123'
-    fill_in 'pw_confirmation', with: '123'
+    fill_in 'user_password', with: '12'
+    fill_in 'pw_confirmation', with: '12'
     click_on ('Register')
-    expect(page).to have_content 'Password must be more than 3 characters'
+    expect(page).to have_content 'Password must be at least 3 characters'
 
     fill_in 'user_email', with: '123@abc.com'
-    fill_in 'user_password', with: ''
-    fill_in 'pw_confirmation', with: ''
+    fill_in 'user_password', with: '     '
+    fill_in 'pw_confirmation', with: '     '
     click_on ('Register')
     expect(page).to have_content 'Password field cannot be blank'
 

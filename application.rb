@@ -70,14 +70,14 @@ class Application < Sinatra::Application
   private
 
   def password_validation?(userpw, pwconfirm)
-    userpw.length > 3 && userpw == pwconfirm
+    userpw.strip.length >= 3 && userpw == pwconfirm
   end
 
   def error_message(userpw)
-    if userpw.empty?
+    if userpw.strip.empty?
       "Password field cannot be blank"
-    elsif userpw.length <= 3
-      "Password must be more than 3 characters"
+    elsif userpw.length < 3
+      "Password must be at least 3 characters"
     else
       "Passwords must match"
     end
