@@ -20,11 +20,13 @@ class Application < Sinatra::Application
   end
 
   post '/register' do
-    if params[:user_password] == params[:pw_confirmation]
+    if params[:user_password].length > 3 && params[:user_password] == params[:pw_confirmation]
       hashed_password = BCrypt::Password.create(params[:user_password])
       new_id = @user_table.insert(email: params[:user_email], password: hashed_password)
       session[:user_id] = new_id
       redirect '/'
+    elsif params[:user_password].length <= 3
+      erb :registration, locals: {error: "Password must be more than 3 characters"}
     else
       erb :registration, locals: {error: "Passwords must match"}
     end
