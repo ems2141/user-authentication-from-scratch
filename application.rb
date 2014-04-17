@@ -69,21 +69,22 @@ class Application < Sinatra::Application
   private
 
   def password_validation(userpw, pwconfirm)
-    if userpw.strip.length >= 3 && userpw == pwconfirm
-      true
-    elsif userpw.strip.empty?
+    if userpw.strip.empty?
       @error = "Password field cannot be blank"
       false
     elsif userpw.length < 3
       @error ="Password must be at least 3 characters"
       false
-    else
+    elsif userpw != pwconfirm
       @error = "Passwords must match"
       false
+    else
+      true
     end
   end
 
   def passwords_match?(user, entered_password)
     BCrypt::Password.new(user[:password]) == entered_password
   end
+
 end
