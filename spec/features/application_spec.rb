@@ -48,7 +48,7 @@ feature 'Homepage' do
     click_on('Logout')
 
     click_on('Register')
-    fill_in 'user_email', with: 'joe@example.com'
+    fill_in 'user_email', with: 'jim@example.com'
     fill_in 'user_password', with: 'hello123'
     fill_in 'pw_confirmation', with: 'hello123'
       click_on('Register')
@@ -57,10 +57,10 @@ feature 'Homepage' do
     DB[:users].where(email: 'sam@example.com').update(administrator: true)
 
     click_on 'Login'
-    fill_in 'login_email', with: 'joe@example.com'
+    fill_in 'login_email', with: 'jim@example.com'
     fill_in 'login_password', with: 'hello123'
     click_on('Login')
-    expect(page).to have_content('Welcome, joe@example.com')
+    expect(page).to have_content('Welcome, jim@example.com')
     expect(page).to_not have_content('View all users')
 
     visit '/users'
@@ -76,7 +76,7 @@ feature 'Homepage' do
     expect(page).to have_content('Welcome, sam@example.com')
     click_on('View all users')
     expect(page).to have_content('sam@example.com')
-    expect(page).to have_content('joe@example.com')
+    expect(page).to have_content('jim@example.com')
     expect(page).to have_content('1')
     expect(page).to have_content('2')
   end
@@ -102,6 +102,28 @@ feature 'Homepage' do
     fill_in 'pw_confirmation', with: ''
     click_on ('Register')
     expect(page).to have_content 'Password field cannot be blank'
+
+  end
+
+  scenario 'User cannot register with an email address that already has an account' do
+
+    visit '/'
+    click_on('Register')
+    fill_in 'user_email', with: 'jamie@example.com'
+    fill_in 'user_password', with: 'hello123'
+    fill_in 'pw_confirmation', with: 'hello123'
+    click_on('Register')
+    expect(page).to have_content('Welcome, jamie@example.com')
+
+    click_on('Logout')
+    expect(page).to_not have_content('Welcome, jamie@example.com')
+
+    click_on('Register')
+    fill_in 'user_email', with: 'jamie@example.com'
+    fill_in 'user_password', with: 'hello123'
+    fill_in 'pw_confirmation', with: 'hello123'
+    click_on('Register')
+    expect(page).to have_content('This email address has already been registered')
 
   end
 end

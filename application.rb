@@ -20,14 +20,20 @@ class Application < Sinatra::Application
   end
 
   post '/register' do
-    if password_validation?(params[:user_password], params[:pw_confirmation])
-      hashed_password = BCrypt::Password.create(params[:user_password])
-      new_id = @user_table.insert(email: params[:user_email], password: hashed_password)
-      session[:user_id] = new_id
-      redirect '/'
+    user = @user_table[email: params[:user_email]]
+    if user.nil?
+      if password_validation?(params[:user_password], params[:pw_confirmation])
+        hashed_password = BCrypt::Password.create(params[:user_password])
+        new_id = @user_table.insert(email: params[:user_email], password: hashed_password)
+        session[:user_id] = new_id
+        redirect '/'
+      else
+        password_error = error_message(params[:user_password])
+        erb :registration, locals: {error: password_error}
+      end
     else
-      password_error = error_message(params[:user_password])
-      erb :registration, locals: {error: password_error}
+      error = "This email address has already been registered"
+      erb :registration, locals: {error: error}
     end
   end
 
