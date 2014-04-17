@@ -51,4 +51,14 @@ class Application < Sinatra::Application
     session.clear
     redirect '/'
   end
+
+  get '/users' do
+    users = @user_table.to_a
+    user = @user_table[id: session[:user_id]]
+    if user[:administrator]
+      erb :users, locals: {user: user, users: users}
+    else
+      "You do not have rights to visit this page."
+    end
+  end
 end

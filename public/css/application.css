@@ -4,16 +4,36 @@ body {
 
 .columns {
     padding: 1em;
+    margin-left: 1%;
 }
 
 .title {
-    padding-left: .5em
+    padding-left: .5em;
+    font-size: 3em;
 }
 
 .reg_log_table {
     margin-left: 30%;
 }
+
 td {
     padding-left: 2em;
     padding-top: 1em;
+}
+
+.border {
+    border: 1px black;
+}
+
+.t_header {
+    background-color: green;
+    color: white;
+}
+
+.user_row:nth-child(even) {
+    background: #CCC
+}
+
+.user_row:nth-child(odd) {
+    background: #FFF
 }

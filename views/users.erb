@@ -1,0 +1,23 @@
+<br>
+<a href="/" style="padding-right: 63%; padding-left: 1%;">Home</a>
+Welcome, <%= user[:email] %> |
+<a href="/logout">Logout</a>
+<br>
+<br>
+<h1 style="padding-left: 1%">Users</h1>
+<table style="margin-left: 1%; border: solid">
+  <thead>
+  <tr>
+    <th  style="background-color: darkgrey" class="border">ID</th>
+    <th  style="background-color: darkgrey; border-left: solid; text-align: left; padding-left: 3%"class="border">Email</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% users.each do |user| %>
+      <tr class="user_row">
+        <td style="width: 2em; padding-left: 0; text-align: center" class="border"><%= user[:id] %></td>
+        <td style="border-left: solid; padding-left: 3%; width: 15em" class="border"><%= user[:email] %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -1,12 +1,15 @@
-  <% if user != nil %>
-      <h1 class="title"> Welcome, <%= user[:email] %></h1>
-  <% else %>
-      <h1 class="title">You are not logged in.</h1>
-  <% end %>
+<% if user != nil %>
+    <h1 class="title"> Welcome, <%= user[:email] %></h1>
+<% else %>
+    <h1 class="title">You are not logged in.</h1>
+<% end %>
 <br>
 <% if user != nil %>
     <table>
       <tc class="columns"><a href="/logout">Logout</a></tc>
+      <% if user[:administrator] %>
+          <tc class="columns"><a href="/users">View all users</a></tc>
+      <% end %>
     </table>
 <% else %>
     <table>
