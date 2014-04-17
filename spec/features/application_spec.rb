@@ -86,8 +86,8 @@ feature 'Homepage' do
     visit '/'
     click_on ('Register')
     fill_in 'user_email', with: '123@abc.com'
-    fill_in 'user_password', with: '1234'
-    fill_in 'pw_confirmation', with: 'abcd'
+    fill_in 'user_password', with: 'alphabet'
+    fill_in 'pw_confirmation', with: 'numeric'
     click_on ('Register')
     expect(page).to have_content 'Passwords must match'
 

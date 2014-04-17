@@ -22,14 +22,13 @@ class Application < Sinatra::Application
   post '/register' do
     user = @user_table[email: params[:user_email]]
     if user.nil?
-      if password_validation?(params[:user_password], params[:pw_confirmation])
+      if password_validation(params[:user_password], params[:pw_confirmation])
         hashed_password = BCrypt::Password.create(params[:user_password])
         new_id = @user_table.insert(email: params[:user_email], password: hashed_password)
         session[:user_id] = new_id
         redirect '/'
       else
-        password_error = error_message(params[:user_password])
-        erb :registration, locals: {error: password_error}
+        erb :registration, locals: {error: @error}
       end
     else
       error = "This email address has already been registered"
@@ -69,17 +68,18 @@ class Application < Sinatra::Application
 
   private
 
-  def password_validation?(userpw, pwconfirm)
-    userpw.strip.length >= 3 && userpw == pwconfirm
-  end
-
-  def error_message(userpw)
-    if userpw.strip.empty?
-      "Password field cannot be blank"
+  def password_validation(userpw, pwconfirm)
+    if userpw.strip.length >= 3 && userpw == pwconfirm
+      true
+    elsif userpw.strip.empty?
+      @error = "Password field cannot be blank"
+      false
     elsif userpw.length < 3
-      "Password must be at least 3 characters"
+      @error ="Password must be at least 3 characters"
+      false
     else
-      "Passwords must match"
+      @error = "Passwords must match"
+      false
     end
   end
 
