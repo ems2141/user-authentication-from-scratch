@@ -21,7 +21,7 @@ class Application < Sinatra::Application
 
   post '/register' do
     hashed_password = BCrypt::Password.create(params[:user_password])
-    new_id = DB[:users].insert(email: params[:user_email], password: hashed_password)
+    new_id = @user_table.insert(email: params[:user_email], password: hashed_password)
     session[:user_id] = new_id
     redirect '/'
   end
@@ -32,18 +32,12 @@ class Application < Sinatra::Application
 
   post '/login' do
     user = @user_table[email: params[:login_email]]
-    if user
-      orig_password = BCrypt::Password.new(user[:password])
-      if orig_password == params[:login_password]
-        session[:user_id] = user[:id]
-        redirect '/'
-      else
-        error = "Email / Password is invalid"
-        erb :login, locals: {error: error}
-      end
-    else
+    if user.nil? || !passwords_match?(user, params[:login_password])
       error = "Email / Password is invalid"
       erb :login, locals: {error: error}
+    else
+      session[:user_id] = user[:id]
+      redirect '/'
     end
   end
 
@@ -53,12 +47,19 @@ class Application < Sinatra::Application
   end
 
   get '/users' do
-    users = @user_table.to_a
     user = @user_table[id: session[:user_id]]
-    if user[:administrator]
+    if user && user[:administrator]
+      users = @user_table.to_a
       erb :users, locals: {user: user, users: users}
     else
-      "You do not have rights to visit this page."
+      erb :error
     end
   end
+
+  private
+
+  def passwords_match?(user, entered_password)
+    BCrypt::Password.new(user[:password]) == entered_password
+  end
+
 end
