@@ -16,14 +16,18 @@ class Application < Sinatra::Application
   end
 
   get '/register' do
-    erb :registration
+    erb :registration, locals: {error: nil}
   end
 
   post '/register' do
-    hashed_password = BCrypt::Password.create(params[:user_password])
-    new_id = @user_table.insert(email: params[:user_email], password: hashed_password)
-    session[:user_id] = new_id
-    redirect '/'
+    if params[:user_password] == params[:pw_confirmation]
+      hashed_password = BCrypt::Password.create(params[:user_password])
+      new_id = @user_table.insert(email: params[:user_email], password: hashed_password)
+      session[:user_id] = new_id
+      redirect '/'
+    else
+      erb :registration, locals: {error: "Passwords must match"}
+    end
   end
 
   get '/login' do

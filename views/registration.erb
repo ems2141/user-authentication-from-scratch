@@ -3,6 +3,10 @@
     <td></td>
     <td><h1>Register</h1></td>
   </tc>
+  <tr>
+    <td></td>
+    <td style="color: red"><%= error %></td>
+  </tr>
   <form action="/register" method="post">
     <tr>
       <td>Email</td>
@@ -11,6 +15,10 @@
     <tr>
       <td>Password</td>
       <td><input type="password" name="user_password"></td>
+    </tr>
+    <tr>
+      <td>Confirm Password</td>
+      <td><input type="password" name="pw_confirmation"></td>
     </tr>
     <tr>
       <td></td>

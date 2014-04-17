@@ -10,7 +10,8 @@ feature 'Homepage' do
     click_on('Register')
     fill_in 'user_email', with: 'joe@example.com'
     fill_in 'user_password', with: 'hello123'
-    click_on('Register')
+    fill_in 'pw_confirmation', with: 'hello123'
+      click_on('Register')
     expect(page).to have_content('Welcome, joe@example.com')
 
     click_on('Logout')
@@ -42,13 +43,15 @@ feature 'Homepage' do
     click_on('Register')
     fill_in 'user_email', with: 'sam@example.com'
     fill_in 'user_password', with: 'hello123'
-    click_on('Register')
+    fill_in 'pw_confirmation', with: 'hello123'
+      click_on('Register')
     click_on('Logout')
 
     click_on('Register')
     fill_in 'user_email', with: 'joe@example.com'
     fill_in 'user_password', with: 'hello123'
-    click_on('Register')
+    fill_in 'pw_confirmation', with: 'hello123'
+      click_on('Register')
     click_on('Logout')
 
     DB[:users].where(email: 'sam@example.com').update(administrator: true)
@@ -76,6 +79,17 @@ feature 'Homepage' do
     expect(page).to have_content('joe@example.com')
     expect(page).to have_content('1')
     expect(page).to have_content('2')
+  end
+
+  scenario 'A user can only register if their password matches the confirmation' do
+
+    visit '/'
+    click_on ('Register')
+    fill_in 'user_email', with: '123@abc.com'
+    fill_in 'user_password', with: '1234'
+    fill_in 'pw_confirmation', with: 'abcd'
+    click_on ('Register')
+    expect(page).to have_content 'Passwords must match'
 
   end
 end
