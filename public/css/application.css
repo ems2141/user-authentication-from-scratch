@@ -1,5 +1,5 @@
 body {
-    background-color: orange;
+    background-color: lightgrey;
 }
 
 .columns {
@@ -10,11 +10,9 @@ body {
 .title {
     padding-left: .5em;
     font-size: 3em;
+    font-family: 'Gilda Display', serif;
 }
 
-.reg_log_table {
-    margin-left: 30%;
-}
 
 td {
     padding-left: 2em;
@@ -35,4 +33,33 @@ td {
 
 .user_row:nth-child(odd) {
     background: #FFF
+}
+
+
+html, body {
+    height: 100%;
+}
+
+#wrapper {
+    min-height: 100%;
+    background-color: #DDD;
+    border-left: 1px solid #666;
+    border-right: 1px solid #666;
+    width: 676px;
+    margin: 0 auto;
+    background-color: #f2efbf;
+    width: 500px;
+}
+
+#wrapper2 {
+    background-color: #8da7b3;
+    min-height: 100%;
+    background-color: #DDD;
+    width: 25px;
+    margin: 0 auto;
+    width: 25px;
+}
+
+* html #container {
+    height: 100%;
 }
